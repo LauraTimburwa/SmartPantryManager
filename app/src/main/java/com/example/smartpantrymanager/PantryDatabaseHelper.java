@@ -29,4 +29,17 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
                           int newVersion) {
         // Database upgrade code can be added later.
     }
+    public boolean addIngredient(String name, int quantity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        android.content.ContentValues values =
+                new android.content.ContentValues();
+
+        values.put("name", name);
+        values.put("quantity", quantity);
+
+        long result = db.insert("ingredients", null, values);
+
+        return result != -1;
+    }
 }
