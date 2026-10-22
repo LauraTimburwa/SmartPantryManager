@@ -1,0 +1,11 @@
+[33ma6f1631[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m Add settings screen and navigation
+[33m5030e98[m Add suggested recipes and recipe details screens
+[33m3c33641[m Create recipe model class
+[33m8a2820b[m Display saved ingredients in pantry
+[33m3091a52[m Add method to retrieve pantry ingredients
+[33m23a443f[m Save pantry ingredients using SQLite
+[33m35afa41[m Create SQLite pantry database
+[33m720833c[m Connect add ingredient screen
+[33mb8c379b[m Add ingredient entry screen
+[33m018fafd[m Create pantry screen layout
+[33m3cbea06[m Initial commit - Smart Pantry Manager

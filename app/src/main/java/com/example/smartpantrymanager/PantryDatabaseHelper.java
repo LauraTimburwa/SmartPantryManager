@@ -1,11 +1,13 @@
 
 package com.example.smartpantrymanager;
 
-import android.database.Cursor;
-import java.util.ArrayList;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 public class PantryDatabaseHelper extends SQLiteOpenHelper {
 
@@ -22,7 +24,6 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "name TEXT NOT NULL, " +
                 "quantity INTEGER NOT NULL)";
-
         db.execSQL(createTable);
     }
 
@@ -31,17 +32,15 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
                           int newVersion) {
         // Database upgrade code can be added later.
     }
+
     public boolean addIngredient(String name, int quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        android.content.ContentValues values =
-                new android.content.ContentValues();
-
+        ContentValues values = new ContentValues();
         values.put("name", name);
         values.put("quantity", quantity);
 
         long result = db.insert("ingredients", null, values);
-
         return result != -1;
     }
 
@@ -55,15 +54,48 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
                 null
         );
 
-        while (cursor.moveToNext()) {
-            String name = cursor.getString(0);
-            int quantity = cursor.getInt(1);
+        try {
+            while (cursor.moveToNext()) {
+                String name = cursor.getString(0);
+                int quantity = cursor.getInt(1);
 
-            ingredients.add(name + " - Quantity: " + quantity);
+                ingredients.add(
+                        name + " - Quantity: " + quantity
+                );
+            }
+        } finally {
+            cursor.close();
         }
 
-        cursor.close();
         return ingredients;
     }
 
+    public boolean updateIngredient(int id, String name, int quantity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("name", name);
+        values.put("quantity", quantity);
+
+        int result = db.update(
+                "ingredients",
+                values,
+                "id = ?",
+                new String[]{String.valueOf(id)}
+        );
+
+        return result > 0;
+    }
+
+    public boolean deleteIngredient(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int result = db.delete(
+                "ingredients",
+                "id = ?",
+                new String[]{String.valueOf(id)}
+        );
+
+        return result > 0;
+    }
 }
