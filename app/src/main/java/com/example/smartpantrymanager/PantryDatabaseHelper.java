@@ -1,6 +1,8 @@
 
 package com.example.smartpantrymanager;
 
+import android.database.Cursor;
+import java.util.ArrayList;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -42,4 +44,26 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
 
         return result != -1;
     }
+
+    public ArrayList<String> getAllIngredients() {
+        ArrayList<String> ingredients = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT name, quantity FROM ingredients",
+                null
+        );
+
+        while (cursor.moveToNext()) {
+            String name = cursor.getString(0);
+            int quantity = cursor.getInt(1);
+
+            ingredients.add(name + " - Quantity: " + quantity);
+        }
+
+        cursor.close();
+        return ingredients;
+    }
+
 }
