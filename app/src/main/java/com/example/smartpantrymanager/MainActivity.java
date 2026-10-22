@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         Button recipesButton = new Button(this);
         recipesButton.setText("Suggested Recipes");
 
+        Button settingsButton = new Button(this);
+        settingsButton.setText("Settings");
+
         TextView listTitle = new TextView(this);
         listTitle.setText("Your Ingredients");
         listTitle.setTextSize(20);
@@ -50,8 +53,17 @@ public class MainActivity extends AppCompatActivity {
         layout.addView(title);
         layout.addView(addButton);
         layout.addView(recipesButton);
+        layout.addView(settingsButton);
         layout.addView(listTitle);
         layout.addView(ingredientList);
+
+        settingsButton.setOnClickListener(v -> {
+            Intent intent = new Intent(
+                    MainActivity.this,
+                    SettingsActivity.class
+            );
+            startActivity(intent);
+        });
 
         setContentView(layout);
 
