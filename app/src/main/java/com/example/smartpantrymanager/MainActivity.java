@@ -63,12 +63,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        recipesButton.setOnClickListener(v ->
-                android.widget.Toast.makeText(
-                        this,
-                        "Recipe suggestions coming next!",
-                        android.widget.Toast.LENGTH_SHORT
-                ).show()
+        recipesButton.setOnClickListener(v -> {
+            Intent intent = new Intent(
+                    MainActivity.this,
+                    RecipeActivity.class
+            );
+            startActivity(intent);
+        });
         );
     }
 
